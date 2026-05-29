@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Ask-to-Learn</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar">
+        <div class="brand">
+          <div class="brand-mark">A</div>
+          <div>
+            <h1>Ask-to-Learn</h1>
+            <p>提问式精读学习工具</p>
+          </div>
+        </div>
+
+        <label class="field">
+          <span>DeepSeek API Key</span>
+          <input id="apiKey" type="password" placeholder="sk-... 或使用环境变量" autocomplete="off" />
+        </label>
+
+        <label class="field">
+          <span>API 地址</span>
+          <input id="apiBaseUrl" type="text" value="https://api.deepseek.com" autocomplete="off" />
+        </label>
+
+        <label class="field">
+          <span>模型</span>
+          <select id="model">
+            <option value="deepseek-chat">deepseek-chat</option>
+            <option value="deepseek-reasoner">deepseek-reasoner</option>
+            <option value="deepseek-v4-pro">deepseek-v4-pro</option>
+          </select>
+        </label>
+
+        <div class="upload-box">
+          <input id="fileInput" type="file" accept=".pdf,.txt,.md,.csv,.json" />
+          <p>上传 PDF、教材摘录、文献文本或笔记。</p>
+          <p id="fileStatus">尚未读取文件。</p>
+        </div>
+
+        <label class="field grow">
+          <span>资料正文</span>
+          <textarea id="sourceText" placeholder="也可以直接粘贴资料内容"></textarea>
+          <span id="textCount">0 字</span>
+        </label>
+
+        <button id="analyzeBtn" class="primary">解析资料并开始学习</button>
+
+        <div class="progress-panel" id="progressPanel" aria-live="polite">
+          <div class="progress-head">
+            <span id="progressTitle">准备中</span>
+            <span id="progressPercent">0%</span>
+          </div>
+          <div class="big-progress">
+            <span id="progressBar"></span>
+          </div>
+          <p id="progressDetail">等待操作。</p>
+        </div>
+      </aside>
+
+      <main class="workspace">
+        <section class="topbar">
+          <div>
+            <p class="eyebrow">Learning Loop</p>
+            <h2 id="courseTitle">等待资料</h2>
+          </div>
+          <div class="status-pill" id="statusPill">未开始</div>
+        </section>
+
+        <section class="content-grid">
+          <div class="panel main-panel">
+            <div class="panel-head">
+              <div>
+                <p class="eyebrow">当前问题</p>
+                <h3 id="unitTitle">上传资料后，AI 会先建立知识结构</h3>
+              </div>
+              <span id="questionMeta">-</span>
+            </div>
+            <div id="questionBox" class="question-box">系统会按事实、概念、关系、应用、反思逐层提问。</div>
+            <textarea id="answerInput" class="answer-box" placeholder="在这里用自己的话回答"></textarea>
+            <div class="action-row">
+              <button id="submitAnswerBtn" class="primary" disabled>提交回答</button>
+              <button id="nextQuestionBtn" disabled>下一题</button>
+              <button id="mapBtn" disabled>生成学习逻辑图</button>
+            </div>
+            <div id="feedbackBox" class="feedback-box empty">回答后，这里会显示诊断、更正和追问。</div>
+          </div>
+
+          <div class="panel">
+            <div class="panel-head compact">
+              <div>
+                <p class="eyebrow">掌握度</p>
+                <h3>知识单元</h3>
+              </div>
+            </div>
+            <div id="unitList" class="unit-list"></div>
+          </div>
+        </section>
+
+        <section class="panel map-panel">
+          <div class="panel-head">
+            <div>
+              <p class="eyebrow">学习逻辑图</p>
+              <h3>结构化知识体系</h3>
+            </div>
+          </div>
+          <div id="mapOutput" class="map-output">完成若干轮问答后，可生成知识树、学习路径、论证链和薄弱点。</div>
+        </section>
+      </main>
+    </div>
+
+    <script src="/app.js"></script>
+  </body>
+</html>
