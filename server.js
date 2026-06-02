@@ -279,8 +279,11 @@ function parseModelJson(text) {
 function renderLogicMapImage(payload) {
   return new Promise(async (resolve, reject) => {
     await mkdir(generatedDir, { recursive: true });
-    const filename = `logic-map-${Date.now()}.png`;
+    const stamp = Date.now();
+    const filename = `logic-map-${stamp}.png`;
+    const svgFilename = `logic-map-${stamp}.svg`;
     const outputPath = path.join(generatedDir, filename);
+    const svgOutputPath = path.join(generatedDir, svgFilename);
     const scriptPath = path.join(__dirname, "tools", "render_logic_map.py");
     const child = spawn(bundledPython, [scriptPath], { windowsHide: true });
     const stderr = [];
@@ -288,12 +291,15 @@ function renderLogicMapImage(payload) {
     child.on("error", reject);
     child.on("close", (code) => {
       if (code === 0) {
-        resolve(`/generated/${filename}`);
+        resolve({
+          imageUrl: `/generated/${filename}`,
+          svgUrl: `/generated/${svgFilename}`
+        });
         return;
       }
       reject(new Error(Buffer.concat(stderr).toString("utf8").trim() || "逻辑图图片生成失败。"));
     });
-    child.stdin.end(JSON.stringify({ ...payload, output: outputPath }));
+    child.stdin.end(JSON.stringify({ ...payload, output: outputPath, svg_output: svgOutputPath }));
   });
 }
 
@@ -374,8 +380,8 @@ async function handleApi(req, res) {
     if (req.url === "/api/render-map" && req.method === "POST") {
       const body = await readRequestBody(req);
       const payload = JSON.parse(body.toString("utf8"));
-      const imageUrl = await renderLogicMapImage(payload);
-      return sendJson(res, 200, { imageUrl });
+      const result = await renderLogicMapImage(payload);
+      return sendJson(res, 200, result);
     }
 
     sendJson(res, 404, { error: "API not found." });
