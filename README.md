@@ -164,3 +164,31 @@ The script expects JSON on stdin, so direct execution without input will error; 
 - `public/index.html`: app layout.
 - `public/styles.css`: visual design.
 - `tools/render_logic_map.py`: PNG rendering for the final learning logic map.
+
+## Acknowledgements
+
+This project was inspired by research and tools around question-driven learning, active learning, and Markdown-based mind mapping.
+
+Special thanks to:
+
+- Richard Gale's work on asking questions that matter in teaching and learning.
+- Claude Sammut and Ranan B. Banerji's work on learning concepts by asking questions.
+- Ishan Misra et al.'s Learning-by-Asking framework for interactive visual question answering.
+- The Markmap project, whose Markdown-to-mindmap idea inspired the ebook-style SVG mindmap renderer in this project.
+
+## References
+
+- Gale, R. (2009). *Asking Questions that Matter ... Asking Questions of Value*. International Journal for the Scholarship of Teaching and Learning, 3(2), Article 3. https://doi.org/10.20429/ijsotl.2009.030203
+- Sammut, C., & Banerji, R. B. *Learning Concepts by Asking Questions*.
+- Misra, I., Girshick, R., Fergus, R., Hebert, M., Gupta, A., & van der Maaten, L. (2018). *Learning by Asking Questions*. CVPR 2018.
+- Markmap. *Visualize your Markdown as mindmaps*. https://markmap.js.org/
+
+## Contact
+
+If you find a problem, have suggestions, or want to discuss improvements, please contact:
+
+```text
+zwtsghr@163.com
+```
+
+Replace the address above with the project maintainer's real email before publishing.
