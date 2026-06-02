@@ -190,5 +190,4 @@ If you find a problem, have suggestions, or want to discuss improvements, please
 ```text
 zwtsghr@163.com
 ```
-
-Replace the address above with the project maintainer's real email before publishing.
+😘
